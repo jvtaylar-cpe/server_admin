@@ -1,0 +1,11 @@
+########################################################################
+# Do the updates.
+########################################################################
+# Install all available updates
+
+---
+  - name: Install all current updates
+    dnf:
+      name: "*"
+      state: latest
+    when: (check.stdout | regex_search('updates ARE available')) and run == "true"
