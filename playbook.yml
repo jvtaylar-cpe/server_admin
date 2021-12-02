@@ -1,0 +1,24 @@
+---
+- name: Installation
+  hosts: file_servers
+  become: true
+
+  tasks:
+  - name: Install pip3
+    apt: name=python3-pip state=present
+
+  - name: Installing boto, ansible, openstack thru pip
+    pip:
+      name:
+       - boto
+       - ansible
+       - openstackclient
+
+  - name: Ubuntu java install
+    become: yes
+    apt:
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - openjdk-11-jdk
